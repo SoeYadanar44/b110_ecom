@@ -1,5 +1,16 @@
 <?php
-    
+    if(isset($_POST["login"])) //$_POST is super global array
+    {
+        $email = $_POST["email"]; //retrieve email value of users
+        $password = $_POST["password"]; //retrieve password value of users
+
+       // echo "email is $email and password is $password";
+
+       
+
+    }
+
+
 
 ?>
 
