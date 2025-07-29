@@ -1,15 +1,13 @@
 <?php
-    require_once "dbconnect.php";
-    try {
-        $sql = "select * from category";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        $categories = $stmt->fetchAll();
-    
-    }
-    catch (PDOException $e) {
-        echo $e->getMessage();
-    }
+require_once "dbconnect.php";
+try {
+    $sql = "select * from category";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $categories = $stmt->fetchAll();
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,31 +27,32 @@
         <div class="row">
             <?php require_once "navbarcopy.php"; ?>
         </div>
-        <div class="row mx-auto">
-            <div class="col-md-9">
-                <form class="form" action="insertProduct.php" method="post" enctype="multipart/form-data">
-                    <div class="col-md-4">
-                        <div class="mb-1">
-                            <label for="pname" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" name="pname">
-                        </div>
-                        
-                        <div class="mb-1">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" name="price">
+        <div class="row mt-5">
+            <div class="col-md-12 mx-auto">
+                <form class="form border border-dark rounded p-4" action="insertProduct.php" method="post" enctype="multipart/form-data">
+                    <div class="row px-5">
+                        <div class="col-md-5 mx-5">
+                            <div class="mb-1">
+                                <label for="pname" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" name="pname">
+                            </div>
+                            <div class="mb-1">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" class="form-control" name="price">
+                            </div>
                         </div>
                         <select name="category" class="form-select">
                             <option value="">Choose Category</option>
                             <?php
-                            if(isset($categories)) {
-                                foreach($categories as $category) {
-                                 echo "<option value=$category[catId]>$category[catName] </option>";
+                            if (isset($categories)) {
+                                foreach ($categories as $category) {
+                                    echo "<option value=$category[catId]>$category[catName] </option>";
                                 }
                             }
-    
+                            
                             ?>
                         </select>
-                        
+
 
                     </div>
                 </form>
