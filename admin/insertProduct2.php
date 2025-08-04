@@ -1,5 +1,9 @@
 <?php
 require_once "dbconnect.php";
+if(!isset($_SESSION))
+{//
+    session_start();
+}
 try {
     $sql = "select * from category";
     $stmt = $con->prepare($sql);
@@ -16,16 +20,27 @@ if (isset($_POST["insertBtn"])) {
     $qyt = $_POST['qty'];
     $description = $_POST['description'];
     $fileImage = $_FILES['productImage'];
-    $filePath = "productImage/".$fileImage["name"];
+    $filePath = "productImage/" . $fileImage["name"];
 
 
     $status = move_uploaded_file($fileImage["tmp_name"], $filePath);
 
-    if($status)
-    {
-        echo "file uploaded";
-        echo "<img src = $filePath>";
-    }else{
+    if ($status) {
+        //inserting data into database
+        try {
+            //productId	productName	category	price	description	qty	imgPath	
+            $sql = "insert into product values (?,?,?,?,?,?,?)";
+            $stmt = $con->prepare($sql);
+           $flag =  $stmt->execute([null, $name, $category, $price, $description, $qyt, $filePath]);
+           $id = $con->lastInsertId();
+           if( $flag ) {
+            $message = "new product with id $id has been inserted successfully";
+            $_SESSION["message"] = $message;
+            header("Location: viewProduct.php");
+           }
+        } catch (PDOException $e) {
+        }
+    } else {
         echo "file upload fail";
     }
 }
