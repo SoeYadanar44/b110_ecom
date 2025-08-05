@@ -1,7 +1,6 @@
 <?php
 require_once "dbconnect.php";
-if(!isset($_SESSION))
-{//
+if (!isset($_SESSION)) { //
     session_start();
 }
 try {
@@ -31,13 +30,13 @@ if (isset($_POST["insertBtn"])) {
             //productId	productName	category	price	description	qty	imgPath	
             $sql = "insert into product values (?,?,?,?,?,?,?)";
             $stmt = $con->prepare($sql);
-           $flag =  $stmt->execute([null, $name, $category, $price, $description, $qyt, $filePath]);
-           $id = $con->lastInsertId();
-           if( $flag ) {
-            $message = "new product with id $id has been inserted successfully";
-            $_SESSION["message"] = $message;
-            header("Location: viewProduct.php");
-           }
+            $flag =  $stmt->execute([null, $name, $category, $price, $description, $qyt, $filePath]);
+            $id = $con->lastInsertId();
+            if ($flag) {
+                $message = "new product with id $id has been inserted successfully";
+                $_SESSION["message"] = $message;
+                header("Location: viewProduct.php");
+            }
         } catch (PDOException $e) {
         }
     } else {
