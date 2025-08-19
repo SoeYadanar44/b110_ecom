@@ -43,8 +43,11 @@ p.category = c.catId";
                 if (isset($_SESSION["message"])) {
                     echo "<p class='alert alert-success' style=width:500px>$_SESSION[message] </p>";
                     unset($_SESSION["message"]);
+                }else if(isset($_SESSION['deleteSuccess'])) {
+                    echo "<p class='alert alert-success'>$_SESSION[deleteSuccess] </p>";
+                    unset($_SESSION['deleteSuccess']);
                 }
-                ?>
+           ?>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -68,8 +71,8 @@ p.category = c.catId";
                             <td>$product[qty]</td>
                             <td class='text-wrap'>$desc</td>
                             <td><img src = $product[imgPath] style=width:100px; height:100px;></td>
-                            <td><a href='insert.php' class='btn btn-primary rounded pill'>Edit</a></td>
-                            <td><a href='delete.php' class='btn btn-danger rounded pill'>Delete</a></td>
+                            <td><a href=editDelete.php?eid=$product[productId] class='btn btn-primary rounded pill'>Edit</a></td>
+                            <td><a href=editDelete.php?did=$product[productId] class='btn btn-danger rounded pill'>Delete</a></td>
                             </tr>";
                         }
                         ?>
