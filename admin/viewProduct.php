@@ -135,12 +135,12 @@ else if (isset($_POST['radioBtn'])) {
                 </div>
             </div>
 
-            <div class="col-md-10 py-5"><!-- content    -->
+            <div class="col-md-9 py-5"><!-- content    -->
                 <?php
                 if (isset($_SESSION["message"])) {
                     echo "<p class='alert alert-success' style=width:500px>$_SESSION[message] </p>";
                     unset($_SESSION["message"]);
-                } else if (isset($_SESSION['deleteSuccess'])) {
+                } else if (isset($_SESSION['deleteSuccesstable view'])) {
                     echo "<p class='alert alert-success'>$_SESSION[deleteSuccess] </p>";
                     unset($_SESSION['deleteSuccess']);
                 } else if (isset($_SESSION['updateMessage'])) {

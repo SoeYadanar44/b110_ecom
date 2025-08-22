@@ -1,4 +1,9 @@
 <?php
+if(!isset($_SESSION))
+{
+    session_start();
+
+}
 require_once "dbconnect.php";
 if (isset($_POST["login"])) //$_POST is super global array
 {
@@ -14,7 +19,10 @@ if (isset($_POST["login"])) //$_POST is super global array
 
     if ($adminInfo) {    //checks password and hash match
         if (password_verify($password, $adminInfo["password"])) {
-            echo "Login Success!";
+            $_SESSION['loginSuccess']= true;
+            $_SESSION['email'] = $email;
+            header ("Location:viewProduct.php");
+
         } else {   //password and hash doesn't match
             $errorMessage = "Email or Password might be incorrect!";
 
@@ -44,15 +52,13 @@ if (isset($_POST["login"])) //$_POST is super global array
         <div class="row">
             <?php
             require_once("navbarcopy.php");
-
-
             ?>
         </div>
 
 
         <div class="row">
             <div class="col-md-6 mx-auto py-5">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form">
                     <?php
                     if(isset($errorMessage)){
                         echo "<p class='alert alert-danger'>$errorMessage</p>";

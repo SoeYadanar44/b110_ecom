@@ -23,14 +23,24 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <?php if(isset($_SESSION['loginSuccess']))
+          {
+          ?>
         <li class="nav-item">
           <a class="nav-link" href="viewProduct.php">View Product</a>
+        </li>
+        <li class="nav-item">
+          <?php echo "<p class = 'nav-link disabled'>$_SESSION[email]</p>" ?>
+        </li>
+        <li class="nav-item">
+          <a href="logout.php" class="nav-link">Logout</a>
         </li>
       </ul>
       <form class="d-flex" role="search" method="get" action="viewProduct.php">
         <input name="tsearch" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button name="bsearch" class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <?php  }  ?>
     </div>
   </div>
 </nav>
